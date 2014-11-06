@@ -22,8 +22,8 @@
   ],
   "main": "lib/immutato",
   "engines": {
-      "node": ">=0.10.26",
-      "npm": ">=1.4.3"
+    "node": ">=0.10.26",
+    "npm": ">=1.4.3"
   },
   "scripts": {
     "test": "gulp test"
@@ -32,8 +32,8 @@
   "devDependencies": {
     "chai": "~1.9.1",
     "gulp": "~3.8.6",
-    "gulp-mocha": "~0.5"
-
+    "gulp-mocha": "~0.5",
+    "object-assign": "~1.0.0"
   },
   "keywords": []
 }
