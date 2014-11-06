@@ -1,6 +1,6 @@
 # immutato 
 
-immutable js object
+immutable and typed js data structures
 
 [![Build Status](https://secure.travis-ci.org/parroit/immutato.png?branch=master)](http://travis-ci.org/parroit/immutato) [![NPM version](https://badge-me.herokuapp.com/api/npm/immutato.png)](http://badges.enytc.com/for/npm/immutato) 
 
