@@ -26,9 +26,11 @@
     "npm": ">=1.4.3"
   },
   "scripts": {
-    "test": "gulp test"
+    "test": "node --harmony node_modules/gulp/bin/gulp"
   },
-  "dependencies": {},
+  "dependencies": {
+    "chilli": "~0.1.0"
+  },
   "devDependencies": {
     "chai": "~1.9.1",
     "gulp": "~3.8.6",
