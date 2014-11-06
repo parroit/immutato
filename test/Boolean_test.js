@@ -29,7 +29,7 @@ describe('Boolean', function() {
     });
 
     it('convert primitive Number', function() {
-        Imm.meta.fields.female.type.should.be.equal(immutato.Boolean);
+        Imm.meta.fields.female.type.type.should.be.equal('Boolean');
     });
 
     it('is defined', function() {

@@ -29,7 +29,7 @@ describe('String', function() {
     });
 
     it('convert primitive Number', function() {
-        Imm.meta.fields.name.type.should.be.equal(immutato.String);
+        Imm.meta.fields.name.type.type.should.be.equal('String');
     });
 
     it('is defined', function() {

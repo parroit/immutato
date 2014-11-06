@@ -21,6 +21,11 @@ gulp.task('perf', function () {
     .pipe(mocha({grep: '@perf'}));
 });
 
+gulp.task('only', function () {
+  return gulp.src('./test/*.js')
+    .pipe(mocha({grep: '@only'}));
+});
+
 gulp.task('watch', function () {
   gulp.watch(['./lib/**/*.js', './test/**/*.js'], ['test']);
 });

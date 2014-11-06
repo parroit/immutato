@@ -40,7 +40,7 @@ exports.shouldFailAssertionWith = chilli(function(type, description, sourceValue
     it('Fail assertion with ' + description, function() {
         expect(function() {
             type.assertIs(sourceValue, 'fieldName');
-        }).to.throw(TypeError, 'fieldName should be a ' + type.name + ', but `' + sourceValue + '` was given.');
+        }).to.throw(TypeError, 'fieldName should be a ' + type.meta.type + ', but `' + sourceValue + '` was given.');
     });
 
 });

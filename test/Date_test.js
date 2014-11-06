@@ -29,7 +29,7 @@ describe('Date', function() {
     });
 
     it('convert primitive Number', function() {
-        Imm.meta.fields.born.type.should.be.equal(immutato.Date);
+        Imm.meta.fields.born.type.type.should.be.equal('Date');
     });
 
     it('is defined', function() {

@@ -30,7 +30,7 @@ describe('Number', function() {
     });
 
     it('convert primitive Number', function() {
-        Imm.meta.fields.age.type.should.be.equal(immutato.Number);
+        Imm.meta.fields.age.type.type.should.be.equal('Number');
     });
 
     it('is defined', function() {
