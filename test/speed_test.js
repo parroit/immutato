@@ -18,6 +18,8 @@ var immutato = require('../lib/immutato.js');
 describe('immutato', function() {
     var Imm;
 
+    this.timeout(5000);
+
     before(function() {
         Imm = immutato.struct({
             name: immutato.String,
@@ -34,7 +36,7 @@ describe('immutato', function() {
         console.log(descr + ':%s ms.', end - start);
     }
 
-    it('creation and set @perf', function() {
+    it('creation and set @perf @only', function() {
         var imm;
         var i;
 
@@ -64,19 +66,20 @@ describe('immutato', function() {
 
 
         profile('create immutato object & change property', function() {
-            for (i = 0; i < 10000; i++) {
-                imm = new Imm({
-                    name: 'Andrea',
-                    age: i
-                });
+            imm = new Imm({
+                name: 'Andrea',
+                age: 0
+            });
 
-                var imm2 = imm.set('age', 42);
-                imm2.age.should.be.equal(42);
+            for (i = 0; i < 1000; i++) {
+
+                imm = imm.set('age', 42);
+                imm.age.should.be.equal(42);
             }
         });
 
         profile('create pojo & change property', function() {
-            for (i = 0; i < 10000; i++) {
+            for (i = 0; i < 1000; i++) {
                 imm = {
                     name: 'Andrea',
                     age: i
@@ -90,7 +93,6 @@ describe('immutato', function() {
     });
 
     it('repeated set property @perf', function() {
-        this.timeout(20000);
 
         var data = {
             ciao: 'ciao'
@@ -98,7 +100,7 @@ describe('immutato', function() {
         var fields = {
             ciao: immutato.String
         };
-        var iterations = 10000;
+        var iterations = 1000;
         var i = 0;
 
         for (; i < 100; i++) {
@@ -119,7 +121,7 @@ describe('immutato', function() {
 
 
             for (; i < iterations; i++) {
-                o = o.set('seed', i);
+                o = o.set('ciao', 'ciao' + i);
             }
         });
 

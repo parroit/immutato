@@ -29,13 +29,26 @@
     "test": "gulp test"
   },
   "dependencies": {
+    "object-assign": "~1.0.0",
     "chilli": "~0.1.0"
   },
   "devDependencies": {
     "chai": "~1.9.1",
     "gulp": "~3.8.6",
+    "gulp-load-plugins": "^0.7.1",
     "gulp-mocha": "~0.5",
-    "object-assign": "~1.0.0"
+    "gulp-pure-cjs": "^0.1.2",
+    "gulp-streamify": "0.0.5",
+    "gulp-uglify": "^1.0.1",
+    "sauce-run": "^0.2.0"
   },
-  "keywords": []
+  "keywords": [
+    "immutable",
+    "data",
+    "structure",
+    "structures",
+    "type",
+    "assertion",
+    "js"
+  ]
 }

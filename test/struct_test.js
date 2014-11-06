@@ -144,11 +144,41 @@ describe('immutato', function() {
             var imm = Imm.from({
                 name: 'Giorgio',
                 age: '42'
-            });
+            }).set('name','Giorgio2')
+               .set('age',44);
 
             
-            var expected = '{"name":"Giorgio","age":42}';
+            var expected = '{"name":"Giorgio2","age":44}';
             JSON.stringify(imm).should.be.equal(expected);
+
+        });
+
+        it('keep value of unchanged props ', function() {
+
+            var imm = Imm.from({
+                name: 'Giorgio',
+                age: '42'
+            });
+
+            imm = imm.set('name','Gianni').set('name','Gino');
+            
+            
+            imm.name.should.be.equal('Gino');
+            imm.age.should.be.equal(42);
+
+        });
+
+        it('save constructor value ', function() {
+
+            var imm = Imm.from({
+                name: 'Giorgio',
+                age: '42'
+            },'Person');
+
+            imm = imm.set('name','Gianni').set('name','Gino');
+            
+            
+            imm.constructor.name.should.be.equal('Person');
 
         });
 

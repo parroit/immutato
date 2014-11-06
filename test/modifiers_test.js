@@ -67,7 +67,7 @@ var PersonDef = i.struct({
 
 describe('immutato', function() {
 
-    describe('type modifiers @only', function() {
+    describe('type modifiers', function() {
         describe('default', function() {
             it('pass for missing values', function() {
                 new PersonDef({});
