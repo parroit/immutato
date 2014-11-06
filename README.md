@@ -1,6 +1,6 @@
 # immutato 
 
-immutable hashes
+immutable js object
 
 [![Build Status](https://secure.travis-ci.org/parroit/immutato.png?branch=master)](http://travis-ci.org/parroit/immutato) [![NPM version](https://badge-me.herokuapp.com/api/npm/immutato.png)](http://badges.enytc.com/for/npm/immutato) 
 
@@ -8,9 +8,27 @@ immutable hashes
 Install the module with: `npm install immutato`
 
 ```javascript
-var immutato = require('immutato');
-immutato.awesome(); // "hello "
+var i = require('immutato');
+var Person = i.struct('Person', {
+    name: i.String,
+    age: i.Number
+});
+
+var me = Person({name:'Andrea', age:38});    //ok
+var him = Person({name:12, age:38});    //throws
+
 ```
+
+## Features
+
+* Immutable data structure
+* Set method to create a new immutable object with updated data
+* Idempotent types
+* Optional new 
+* Predefined types for primitives, structures, list, enums
+* Retain type information at runtime
+
+
 
 ## Other stuff
 
