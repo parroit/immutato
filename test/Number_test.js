@@ -14,27 +14,27 @@ chai.should();
 
 var immutato = require('../lib/immutato');
 var util = require('./util');
-var shouldCoherceTo = util.shouldCoherceTo(immutato.NumberType);
-var shouldPassAssertionWith = util.shouldPassAssertionWith(immutato.NumberType);
-var shouldFailAssertionWith = util.shouldFailAssertionWith(immutato.NumberType);
+var shouldCoherceTo = util.shouldCoherceTo(immutato.Number);
+var shouldPassAssertionWith = util.shouldPassAssertionWith(immutato.Number);
+var shouldFailAssertionWith = util.shouldFailAssertionWith(immutato.Number);
 
 
-describe('NumberType', function() {
+describe('Number', function() {
     var Imm;
 
     before(function() {
         Imm = immutato.struct({
-            age: immutato.NumberType
+            age: immutato.Number
         }, 'Person');
 
     });
 
     it('convert primitive Number', function() {
-        Imm.props.age.type.should.be.equal(immutato.NumberType);
+        Imm.meta.fields.age.type.should.be.equal(immutato.Number);
     });
 
     it('is defined', function() {
-        immutato.NumberType.should.be.a('object');
+        immutato.Number.should.be.a('object');
     });
 
     shouldCoherceTo('string float to Number', '12.42', 12.42);

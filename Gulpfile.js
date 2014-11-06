@@ -13,7 +13,12 @@ var mocha = require('gulp-mocha');
 
 gulp.task('test', function () {
   return gulp.src('./test/*.js')
-    .pipe(mocha());
+    .pipe(mocha({grep:'@perf', invert: true}));
+});
+
+gulp.task('perf', function () {
+  return gulp.src('./test/*.js')
+    .pipe(mocha({grep: '@perf'}));
 });
 
 gulp.task('watch', function () {

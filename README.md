@@ -27,6 +27,7 @@ var him = Person({name:12, age:38});    //throws
 * Optional new 
 * Predefined types for primitives, structures, list, enums
 * Retain type information at runtime
+* Minimize object copy using prototype chain.
 
 
 

@@ -14,26 +14,26 @@ chai.should();
 
 var immutato = require('../lib/immutato.js');
 var util = require('./util');
-var shouldCoherceTo = util.shouldCoherceTo(immutato.DateType);
-var shouldPassAssertionWith = util.shouldPassAssertionWith(immutato.DateType);
-var shouldFailAssertionWith = util.shouldFailAssertionWith(immutato.DateType);
+var shouldCoherceTo = util.shouldCoherceTo(immutato.Date);
+var shouldPassAssertionWith = util.shouldPassAssertionWith(immutato.Date);
+var shouldFailAssertionWith = util.shouldFailAssertionWith(immutato.Date);
 
-describe('DateType', function() {
+describe('Date', function() {
     var Imm;
 
     before(function() {
         Imm = immutato.struct({
-            born: immutato.DateType
+            born: immutato.Date
         }, 'Person');
 
     });
 
     it('convert primitive Number', function() {
-        Imm.props.born.type.should.be.equal(immutato.DateType);
+        Imm.meta.fields.born.type.should.be.equal(immutato.Date);
     });
 
     it('is defined', function() {
-        immutato.DateType.should.be.a('object');
+        immutato.Date.should.be.a('object');
     });
 
 

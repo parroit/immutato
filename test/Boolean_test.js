@@ -14,26 +14,26 @@ chai.should();
 
 var immutato = require('../lib/immutato.js');
 var util = require('./util');
-var shouldCoherceTo = util.shouldCoherceTo(immutato.BooleanType);
-var shouldPassAssertionWith = util.shouldPassAssertionWith(immutato.BooleanType);
-var shouldFailAssertionWith = util.shouldFailAssertionWith(immutato.BooleanType);
+var shouldCoherceTo = util.shouldCoherceTo(immutato.Boolean);
+var shouldPassAssertionWith = util.shouldPassAssertionWith(immutato.Boolean);
+var shouldFailAssertionWith = util.shouldFailAssertionWith(immutato.Boolean);
 
-describe('BooleanType', function() {
+describe('Boolean', function() {
     var Imm;
 
     before(function() {
         Imm = immutato.struct({
-            female: immutato.BooleanType
+            female: immutato.Boolean
         }, 'Person');
 
     });
 
     it('convert primitive Number', function() {
-        Imm.props.female.type.should.be.equal(immutato.BooleanType);
+        Imm.meta.fields.female.type.should.be.equal(immutato.Boolean);
     });
 
     it('is defined', function() {
-        immutato.BooleanType.should.be.a('object');
+        immutato.Boolean.should.be.a('object');
     });
 
 

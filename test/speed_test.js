@@ -13,21 +13,15 @@ chai.expect();
 chai.should();
 
 var immutato = require('../lib/immutato.js');
-var assign = require('object-assign');
 
-immutato.fn.setCopy = function(propName, value) {
-    var newData = assign({}, this);
-    newData[propName] = value;
-    return immutato(newData);
-};
 
 describe('immutato', function() {
     var Imm;
 
     before(function() {
         Imm = immutato.struct({
-            name: immutato.StringType,
-            age: immutato.NumberType
+            name: immutato.String,
+            age: immutato.Number
         }, 'Person');
 
     });
@@ -40,7 +34,7 @@ describe('immutato', function() {
         console.log(descr + ':%s ms.', end - start);
     }
 
-    it('creation and set', function() {
+    it('creation and set @perf', function() {
         var imm;
         var i;
 
@@ -69,7 +63,7 @@ describe('immutato', function() {
         });
 
 
-        profile('change property of immutato object', function() {
+        profile('create immutato object & change property', function() {
             for (i = 0; i < 10000; i++) {
                 imm = new Imm({
                     name: 'Andrea',
@@ -81,7 +75,7 @@ describe('immutato', function() {
             }
         });
 
-        profile('change property of pojo', function() {
+        profile('create pojo & change property', function() {
             for (i = 0; i < 10000; i++) {
                 imm = {
                     name: 'Andrea',
@@ -95,20 +89,20 @@ describe('immutato', function() {
 
     });
 
-    it('repeated set property', function() {
+    it('repeated set property @perf', function() {
         this.timeout(20000);
 
         var data = {
             ciao: 'ciao'
         };
         var fields = {
-            ciao: immutato.StringType
+            ciao: immutato.String
         };
         var iterations = 10000;
         var i = 0;
 
         for (; i < 100; i++) {
-            fields['prop' + i] = immutato.StringType;
+            fields['prop' + i] = immutato.String;
             data['prop' + i] = '0';
         }
 
@@ -117,25 +111,12 @@ describe('immutato', function() {
         var o = new Struct(data);
         var test;
 
-        profile('Set property using object assign', function() {
-
-            var i = 0;
-
-            for (; i < iterations; i++) {
-                o = o.setCopy('seed', i);
-            }
-        });
-
-        profile('Read property using object assign', function() {
-            var i = 0;
-            for (; i < iterations; i++) {
-                test = o.ciao;
-            }
-        });
 
         profile('Set property using prototype chain', function() {
 
             var i = 0;
+
+
 
             for (; i < iterations; i++) {
                 o = o.set('seed', i);

@@ -16,7 +16,7 @@ var immutato = require('../lib/immutato.js');
 
 describe('immutato', function() {
     it('is defined', function() {
-        immutato.should.be.a('function');
+        immutato.should.be.a('object');
     });
 
     describe('build a constructor', function() {
@@ -24,8 +24,8 @@ describe('immutato', function() {
 
         before(function() {
             Imm = immutato.struct({
-                name: immutato.StringType,
-                age: immutato.NumberType
+                name: immutato.String,
+                age: immutato.Number
             }, 'Person');
 
         });
@@ -83,7 +83,7 @@ describe('immutato', function() {
             });
 
             (imm instanceof Imm).should.be.equal(true);
-            (imm instanceof immutato).should.be.equal(false);
+            (imm instanceof immutato.struct).should.be.equal(false);
         });
 
         it('coherce empty arguments', function() {
@@ -116,6 +116,26 @@ describe('immutato', function() {
 
             imm2.should.not.be.equal(imm);
             imm2.name.should.be.equal('Gigio');
+
+        });
+
+        it('is idempotent', function() {
+
+            var imm = Imm.from({
+                name: 'Giorgio',
+                age: '42'
+            });
+
+            var imm2 = new Imm(imm);
+
+            var imm3 = Imm.from({
+                name: 'Giorgio',
+                age: '42'
+            });
+
+
+            imm2.should.be.equal(imm);
+            imm3.should.not.be.equal(imm);
 
         });
 

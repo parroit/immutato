@@ -14,26 +14,26 @@ chai.should();
 
 var immutato = require('../lib/immutato.js');
 var util = require('./util');
-var shouldCoherceTo = util.shouldCoherceTo(immutato.StringType);
-var shouldPassAssertionWith = util.shouldPassAssertionWith(immutato.StringType);
-var shouldFailAssertionWith = util.shouldFailAssertionWith(immutato.StringType);
+var shouldCoherceTo = util.shouldCoherceTo(immutato.String);
+var shouldPassAssertionWith = util.shouldPassAssertionWith(immutato.String);
+var shouldFailAssertionWith = util.shouldFailAssertionWith(immutato.String);
 
-describe('StringType', function() {
+describe('String', function() {
     var Imm;
 
     before(function() {
         Imm = immutato.struct({
-            name: immutato.StringType
+            name: immutato.String
         }, 'Person');
 
     });
 
     it('convert primitive Number', function() {
-        Imm.props.name.type.should.be.equal(immutato.StringType);
+        Imm.meta.fields.name.type.should.be.equal(immutato.String);
     });
 
     it('is defined', function() {
-        immutato.StringType.should.be.a('object');
+        immutato.String.should.be.a('object');
     });
 
 
