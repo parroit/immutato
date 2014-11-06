@@ -139,6 +139,19 @@ describe('immutato', function() {
 
         });
 
+        it('render to json', function() {
+
+            var imm = Imm.from({
+                name: 'Giorgio',
+                age: '42'
+            });
+
+            
+            var expected = '{"name":"Giorgio","age":42}';
+            JSON.stringify(imm).should.be.equal(expected);
+
+        });
+
 
 
 
