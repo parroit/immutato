@@ -90,26 +90,26 @@ describe('setDeep @only', function() {
         var personNewVer;
 
         before(function(){
-            personNewVer = setDeep.call(person,'born.city.state.country.name','Italia');
+            personNewVer = setDeep.call(person,'born.state.country.name','Italia');
         });
 
 
         it('change final property', function() {
-            personNewVer.born.city.state.country.name.should.be.equal('Italia');
+            personNewVer.born.state.country.name.should.be.equal('Italia');
         });
 
         it('change mid properties', function() {
-            personNewVer.born.city.state.country.should.not.be.equal(person.born.city.state.country);
-            personNewVer.born.city.state.should.not.be.equal(person.born.city.state);
-            personNewVer.born.city.should.not.be.equal(person.born.city);
+            personNewVer.born.state.country.should.not.be.equal(person.born.state.country);
+            personNewVer.born.state.should.not.be.equal(person.born.state);
             personNewVer.born.should.not.be.equal(person.born);
         });
 
         it('original final property immutate', function() {
-            person.born.city.state.country.name.should.be.equal('Italy');
+            person.born.state.country.name.should.be.equal('Italy');
         });
 
         it('return new root Object', function() {
+            
             person.should.not.be.equal(personNewVer);
         });
 
