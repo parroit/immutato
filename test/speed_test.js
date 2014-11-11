@@ -36,7 +36,7 @@ describe('immutato', function() {
         console.log(descr + ':%s ms.', end - start);
     }
 
-    it('creation and set @perf @only', function() {
+    it('creation and set @perf', function() {
         var imm;
         var i;
 
