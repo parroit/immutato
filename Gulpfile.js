@@ -70,7 +70,7 @@ gulp.task('watch-only', function() {
 
 gulp.task('default', ['test', 'watch']);
 
-gulp.task('test-all', ['test', 'test-phantom']);
+gulp.task('test-travis', ['test', 'test-phantom-travis']);
 
 var server;
 gulp.task('serve-test', function() {
@@ -90,6 +90,20 @@ gulp.task('test-phantom', ['build-test', 'serve-test'], function() {
     setTimeout(function() {
       server.close();
     },1000);
+    
+    return stream;
+});
+
+
+gulp.task('test-phantom-travis', function() {
+
+    var stream = $.mochaPhantomjs();
+    guard(stream);
+    stream.write({
+        path: 'http://www.parro.it/immutato/test.html'
+    });
+    stream.end();
+   
     
     return stream;
 });

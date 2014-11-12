@@ -26,7 +26,7 @@
     "npm": ">=1.4.3"
   },
   "scripts": {
-    "test": "gulp test-all"
+    "test": "gulp test-travis"
   },
   "dependencies": {
     "object-assign": "~1.0.0",
