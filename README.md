@@ -2,7 +2,8 @@
 
 immutable and typed js data structures
 
-[![Build Status](https://secure.travis-ci.org/parroit/immutato.png?branch=master)](http://travis-ci.org/parroit/immutato) [![NPM version](https://badge-me.herokuapp.com/api/npm/immutato.png)](http://badges.enytc.com/for/npm/immutato) 
+[![Build Status](https://secure.travis-ci.org/parroit/immutato.png?branch=master)](http://travis-ci.org/parroit/immutato) [![NPM version](https://badge-me.herokuapp.com/api/npm/immutato.png)](http://badges.enytc.com/for/npm/immutato) [![Code Climate](https://codeclimate.com/github/parroit/immutato.png)](https://codeclimate.com/github/parroit/immutato)
+
 
 ## Getting Started
 Install the module with: `npm install immutato`
