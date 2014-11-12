@@ -23,7 +23,12 @@ exports.shouldCoherceTo = chilli(function(type, description, sourceValue, expect
             coherced = coherced.getTime();
 
         }
-        coherced.should.be.equal(expectedResult);
+        if (isNaN(expectedResult)) {
+            expect(isNaN(coherced)).to.be.equal(true);    
+        } else {
+            expect(coherced).to.be.equal(expectedResult);    
+        }
+        
     });
 
 });

@@ -27,7 +27,7 @@ gulp.task('cover', function (cb) {
     .pipe($.istanbul()) // Covering files
     .on('finish', function () {
       gulp.src(tests)
-        .pipe($.mocha())
+        .pipe($.mocha({grep:'@perf', invert: true}))
         .pipe($.istanbul.writeReports()) // Creating the reports after tests runned
         .on('end', cb);
     });
@@ -46,6 +46,11 @@ gulp.task('only', function () {
 
 gulp.task('watch', function () {
   gulp.watch(['./lib/**/*.js', './test/**/*.js'], ['test']);
+});
+
+
+gulp.task('watch-only', function () {
+  gulp.watch(['./lib/**/*.js', './test/**/*.js'], ['only']);
 });
 
 gulp.task('default', ['test', 'watch']);

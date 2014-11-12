@@ -39,7 +39,7 @@ var Person = immutato.struct({
 }, 'Person');
 
 
-describe('setDeep @only', function() {
+describe('setDeep', function() {
     var person;
 
     before(function() {

@@ -2,7 +2,7 @@
 
 immutable and typed js data structures
 
-[![Build Status](https://secure.travis-ci.org/parroit/immutato.png?branch=master)](http://travis-ci.org/parroit/immutato) [![NPM version](https://badge-me.herokuapp.com/api/npm/immutato.png)](http://badges.enytc.com/for/npm/immutato) [![Code Climate](https://codeclimate.com/github/parroit/immutato.png)](https://codeclimate.com/github/parroit/immutato)
+[![Build Status](https://secure.travis-ci.org/parroit/immutato.png?branch=master)](http://travis-ci.org/parroit/immutato) [![NPM version](https://badge-me.herokuapp.com/api/npm/immutato.png)](http://badges.enytc.com/for/npm/immutato) [![Code Climate](https://codeclimate.com/github/parroit/immutato.png)](https://codeclimate.com/github/parroit/immutato) [![Test Coverage](https://codeclimate.com/github/parroit/immutato/badges/coverage.svg)](https://codeclimate.com/github/parroit/immutato)
 
 
 ## Getting Started
