@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>immutato Test Runner</title>
+    <link rel="stylesheet" href="../node_modules/gulp-mocha/node_modules/mocha/mocha.css">
+
+</head>
+
+<body>
+    <div id="mocha"></div>
+
+    <script src="../node_modules/gulp-mocha/node_modules/mocha/mocha.js"></script>
+    <script src="client.js"></script>
+
+
+    <script>
+    mocha.setup('bdd');
+    window.process = {
+        env: {}
+    };
+    </script>
+
+    <script src="immutato-test.js"></script>
+
+
+    <script>
+    var runner;
+    if (window.mochaPhantomJS) {
+        runner = mochaPhantomJS.run();
+    } else {
+        runner = mocha.run();
+
+
+    }
+
+    var failedTests = [];
+    runner.on('end', function() {
+        window.mochaResults = runner.stats;
+        window.mochaResults.reports = failedTests;
+    });
+
+
+    runner.on('fail', logFailure);
+
+    function logFailure(test, err) {
+
+        var flattenTitles = function(test) {
+            var titles = [];
+            while (test.parent.title) {
+                titles.push(test.parent.title);
+                test = test.parent;
+            }
+            return titles.reverse();
+        };
+
+        failedTests.push({
+            name: test.title,
+            result: false,
+            message: err.message,
+            stack: err.stack,
+            titles: flattenTitles(test)
+        });
+    }
+    </script>
+</body>
+
+</html>
