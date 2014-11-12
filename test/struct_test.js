@@ -54,16 +54,25 @@ describe('immutato', function() {
         });
 
         it('return immutable instances', function() {
-            expect(function() {
-                var imm = new Imm({
-                    name: 'Andrea',
-                    age: 2
-                });
-                imm.name = 'Giorgio';
 
-            }).to.throw(TypeError);
+            var imm = new Imm({
+                name: 'Andrea',
+                age: 2
+            });
+            //imm.name = 'Giorgio';
+
+            Object.isFrozen(imm).should.be.equal(true);
         });
+        
+        it('set return immutable instances', function() {
+            var imm = new Imm({
+                name: 'Andrea',
+                age: 2
+            });
+            imm = imm.set('age', 3);
 
+            Object.isFrozen(imm).should.be.equal(true);
+        });
 
 
         it('provide access to properties', function() {
@@ -142,12 +151,12 @@ describe('immutato', function() {
         it('render to json', function() {
 
             var imm = Imm.from({
-                name: 'Giorgio',
-                age: '42'
-            }).set('name','Giorgio2')
-               .set('age',44);
+                    name: 'Giorgio',
+                    age: '42'
+                }).set('name', 'Giorgio2')
+                .set('age', 44);
 
-            
+
             var expected = '{"name":"Giorgio2","age":44}';
             JSON.stringify(imm).should.be.equal(expected);
 
@@ -160,9 +169,9 @@ describe('immutato', function() {
                 age: '42'
             });
 
-            imm = imm.set('name','Gianni').set('name','Gino');
-            
-            
+            imm = imm.set('name', 'Gianni').set('name', 'Gino');
+
+
             imm.name.should.be.equal('Gino');
             imm.age.should.be.equal(42);
 
@@ -173,11 +182,11 @@ describe('immutato', function() {
             var imm = Imm.from({
                 name: 'Giorgio',
                 age: '42'
-            },'Person');
+            }, 'Person');
 
-            imm = imm.set('name','Gianni').set('name','Gino');
-            
-            
+            imm = imm.set('name', 'Gianni').set('name', 'Gino');
+
+
             imm.constructor.name.should.be.equal('Person');
 
         });

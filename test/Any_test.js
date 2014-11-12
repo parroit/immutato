@@ -19,7 +19,7 @@ var shouldPassAssertionWith = util.shouldPassAssertionWith(immutato.Any);
 var shouldFailAssertionWith = util.shouldFailAssertionWith(immutato.Any);
 
 
-describe('Any @only', function() {
+describe('Any', function() {
     var Imm;
 
     before(function() {

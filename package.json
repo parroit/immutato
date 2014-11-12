@@ -26,7 +26,7 @@
     "npm": ">=1.4.3"
   },
   "scripts": {
-    "test": "gulp test"
+    "test": "gulp test-all"
   },
   "dependencies": {
     "object-assign": "~1.0.0",
@@ -38,7 +38,9 @@
     "gulp-istanbul": "^0.3.1",
     "gulp-load-plugins": "^0.7.1",
     "gulp-mocha": "~0.5",
+    "gulp-mocha-phantomjs": "^0.5.1",
     "gulp-pure-cjs": "^0.1.2",
+    "gulp-serve": "^0.3.0",
     "gulp-streamify": "0.0.5",
     "gulp-uglify": "^1.0.1",
     "sauce-run": "^0.2.0"
