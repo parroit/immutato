@@ -4,7 +4,7 @@ immutable and typed js data structures
 
 [![Build Status](https://secure.travis-ci.org/parroit/immutato.png?branch=master)](http://travis-ci.org/parroit/immutato) [![NPM version](https://badge-me.herokuapp.com/api/npm/immutato.png)](http://badges.enytc.com/for/npm/immutato) [![Code Climate](https://codeclimate.com/github/parroit/immutato.png)](https://codeclimate.com/github/parroit/immutato) [![Test Coverage](https://codeclimate.com/github/parroit/immutato/badges/coverage.svg)](https://codeclimate.com/github/parroit/immutato)
 
-[![Sauce Test Status](https://saucelabs.com/browser-matrix/parroit-github.svg)](https://saucelabs.com/u/parroit-github)
+[![Sauce Test Status](https://saucelabs.com/browser-matrix/parroit.svg)](https://saucelabs.com/u/parroit)
 
 
 ## Getting Started
