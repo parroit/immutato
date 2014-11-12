@@ -32,7 +32,7 @@ describe('immutato', function() {
 
 
         it('has properly name', function() {
-            Imm.name.should.be.equal('Person');
+            Imm.typeName.should.be.equal('Person');
         });
 
 
@@ -187,7 +187,7 @@ describe('immutato', function() {
             imm = imm.set('name', 'Gianni').set('name', 'Gino');
 
 
-            imm.constructor.name.should.be.equal('Person');
+            imm.constructor.typeName.should.be.equal('Person');
 
         });
 
