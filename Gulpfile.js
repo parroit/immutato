@@ -71,7 +71,7 @@ gulp.task('watch-only', function() {
 gulp.task('default', ['test', 'watch']);
 
 gulp.task('test-travis', ['test', 'test-phantom-travis'],function(){
-    require('./run-test-sauce');
+    //require('./run-test-sauce');
 });
 
 var server;
