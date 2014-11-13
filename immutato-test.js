@@ -417,6 +417,7 @@
                         }.bind(this));
                         Object.freeze(this);
                     });
+                Constructor.typeName = typeName;
                 Constructor.prototype = Object.create(proto);
                 Constructor.prototype.constructor = Constructor;
                 Constructor.meta = {
@@ -2165,13 +2166,8 @@
                 it('is defined', function () {
                     immutato.Date.should.be.a('object');
                 });
-                var dt1 = new Date(2012, 3, 23, 18, 25, 43, 511);
-                var toString = Object.prototype.toString;
-                dt1.setUTCHours(18);
-                var dt2 = new Date(2014, 9, 23, 19, 27, 9);
-                dt2.setUTCHours(19);
-                shouldCoherceTo('ISO string to date', '2012-04-23T18:25:43.511Z', dt1);
-                shouldCoherceTo('number ms from epoch to date', 1414092429000, dt2);
+                shouldCoherceTo('ISO string to date', '2012-04-23T18:25:43.511Z', 1335205543511);
+                shouldCoherceTo('number ms from epoch to date', 1414092429000, 1414092429000);
                 shouldPassAssertionWith('date', new Date());
                 shouldFailAssertionWith('boolean', true);
                 shouldFailAssertionWith('number', 42);
@@ -2602,7 +2598,7 @@
                         }, 'Person');
                     });
                     it('has properly name', function () {
-                        Imm.name.should.be.equal('Person');
+                        Imm.typeName.should.be.equal('Person');
                     });
                     it('throws with bad argument number', function () {
                         expect(function () {
@@ -2705,7 +2701,7 @@
                                 age: '42'
                             }, 'Person');
                         imm = imm.set('name', 'Gianni').set('name', 'Gino');
-                        imm.constructor.name.should.be.equal('Person');
+                        imm.constructor.typeName.should.be.equal('Person');
                     });
                 });
             });
@@ -2773,8 +2769,8 @@
             exports.shouldCoherceTo = chilli(function (type, description, sourceValue, expectedResult) {
                 it('Coherce ' + description, function () {
                     var coherced = type.from(sourceValue);
-                    if (toString.call(expectedResult) === '[object Date]') {
-                        expectedResult = expectedResult.getTime();
+                    if (toString.call(coherced) === '[object Date]') {
+                        expectedResult = typeof expectedResult === 'number' ? expectedResult : expectedResult.getTime();
                         coherced = coherced.getTime();
                     }
                     if (isNaN(expectedResult)) {
