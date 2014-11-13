@@ -37,16 +37,11 @@ describe('Date', function() {
     });
 
 
-    var dt1 = new Date(2012,3,23,18,25,43,511);
-    var toString = Object.prototype.toString;
+    
+    
 
-    dt1.setUTCHours(18);
-
-    var dt2 = new Date(2014,9,23, 19,27,9);
-    dt2.setUTCHours(19);
-
-    shouldCoherceTo('ISO string to date', '2012-04-23T18:25:43.511Z', dt1);
-    shouldCoherceTo('number ms from epoch to date', 1414092429000, dt2 );
+    shouldCoherceTo('ISO string to date', '2012-04-23T18:25:43.511Z', 1335205543511);
+    shouldCoherceTo('number ms from epoch to date', 1414092429000, 1414092429000 );
 
 
 

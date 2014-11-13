@@ -18,11 +18,12 @@ exports.shouldCoherceTo = chilli(function(type, description, sourceValue, expect
 
         var coherced = type.from(sourceValue);
 
-        if (toString.call(expectedResult) === '[object Date]') {
-            expectedResult = expectedResult.getTime();
+        if (toString.call(coherced) === '[object Date]') {
+            expectedResult = typeof expectedResult === 'number'  ? expectedResult : expectedResult.getTime();
             coherced = coherced.getTime();
 
         }
+
         if (isNaN(expectedResult)) {
             expect(isNaN(coherced)).to.be.equal(true);    
         } else {
