@@ -24,7 +24,7 @@ A structured type internally represent it's properties with an array of
 transaction. This array is shared between versions of the same structured type instance. 
 The first transaction is inserted in the array by I.create method:
 
-'''
+```javascript
 var me = I.create({
     name: '',
     surname: ''
@@ -34,11 +34,11 @@ me->transactions == [{
     name: '',
     surname: ''
 }]
-'''
+```
 
 And therefore, each update to the data structure create a new item in transactions array.
 
-'''
+```javascript
 me = me.name('Andrea');
 me = me.surname('Parodi');
 
@@ -50,7 +50,7 @@ me->transactions == [{
 },{
     surname: 'Parodi'
 }]
-'''
+```
 
 
 A first implementation was using js prototype mechanism to access
@@ -99,12 +99,12 @@ within the property indexes table that represrnt the property.
 
 For example, with the type: 
 
-'''
+```javascript
 I.create({
     name: '',
     surname: ''
 });
-'''
+```
 
 the name functor will close on index 0, and the surname functor will close 
 on index 1.
@@ -141,7 +141,7 @@ by the following steps:
 
 ###Examples
 
-'''
+```javascript
 
 //
 //  object creation
@@ -179,4 +179,4 @@ expect(before).to.be.equal(null);
 var after = me.redo();
 after.should.be.equal(meV2);
 
-'''
+```
