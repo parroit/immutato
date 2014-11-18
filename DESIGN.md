@@ -86,10 +86,11 @@ another one when the threshold is reached.
 
 So, the internal representation of a structured type at version --N, actually is:
 
--- transactionArray (shared between version1,version2, ... versionN)
--- propertyIndexes (-> __proto__ -> propertyIndex N-1 -> __proto__ ->         propertyIndex N-2 ... -> __proto__ -> propertyIndex 1)
--- propertyFunctors (each closing on a position of the propertyIndexes)
-
+      
+    -- transactionArray (shared between version1,version2, ... versionN)
+    -- propertyIndexes (-> __proto__ -> propertyIndex N-1 -> __proto__ ->         propertyIndex N-2 ... -> __proto__ -> propertyIndex 1)
+    -- propertyFunctors (each closing on a position of the propertyIndexes)
+    
 
 
 ####Accessing a property value 
