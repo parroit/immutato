@@ -61,10 +61,10 @@ This was easy to implement, but it result to be slow and not flexible.
 It was slow because a property that is not changed after N updates has to go through a prototype chain of N to be read.
 
 To mitigate this factor, we shallow copy the entire object after M updates,
-guaranting that no proto chain will ever grown over M, but effectively loosing the undo possibility on the (M+1)° version of the instance (because it is a fresh new shallow copy, and so it's previous version is not accessible by proto)
+guaranteeing that no proto chain will ever grown over M, but effectively loosing the undo possibility on the (M+1)° version of the instance (because it is a fresh new shallow copy, and so it's previous version is not accessible by proto)
 
-And it was unflexible because undoed version doesn't know which is their
-succiding version (we cannot set it because they are effectively immutable)
+And it was inflexible because undo-ed version doesn't know which is their
+subsequent version (we cannot set it because they are effectively immutable)
 
 So now each version keep a table of property indexes. 
 
@@ -79,9 +79,23 @@ The index table has to be shallow copied for each update to the structure.
 This is very inefficient for structure with many properties, such as array,
 and it is near equivalent to copy all property values from the current copy to the new one. 
 
-However, we can implement a mitigating approach, that is to use the prototypal feature described before to copy only one index (that of the changing property). We can shallow copy the table once every L updates, where
-L is the number of property in the object. This way, we do 2 table property copy for every update to the structure. One property is copied during update,
-another one when the threshold is reached.
+However, we can implement a mitigating approach, that is to use the prototypical feature described before to copy only one index (that of the changing property). We can shallow copy the table once every L updates, where
+L is the number of property in the object. This way, we do 2 table property copy for every update to the structure. One property is copied during update, another one when the threshold is reached.
+
+We create a [jsPerf test case to check the performance of the two approaches ](http://jsperf.com/copy-by-assign-or-copy-by-prototype)
+
+As you can see on the test case, we compare the two approach on objects
+with 10,100,1000,10000 properties.
+
+We test it with Chrome, Firefox, Safari, IE11 and Opera. 
+
+It appears that in chrome Object.create it's very slow,
+the two methods have approximatively the same performance on objects with ~ 1000 keys.
+From there on, the Object.create method is preferable. With less keys, the Object.assign 
+perform better (it is even using a polyfill on my browser, so it should perform even better 
+on other browsers where it is natively supported)
+
+In Firefox, Safari, IE11 and Opera, instead, Object.create outperform Object.assign for any number of keys.
 
 
 So, the internal representation of a structured type at version --N, actually is:
@@ -90,13 +104,13 @@ So, the internal representation of a structured type at version --N, actually is
     -- transactionArray (shared between version1,version2, ... versionN)
     -- propertyIndexes (-> __proto__ -> propertyIndex N-1 -> __proto__ ->         propertyIndex N-2 ... -> __proto__ -> propertyIndex 1)
     -- propertyFunctors (each closing on a position of the propertyIndexes)
-    
+
 
 
 ####Accessing a property value 
 
 Each property functor of a structured type is a closure on the index 
-within the property indexes table that represrnt the property.
+within the property indexes table that represent the property.
 
 For example, with the type: 
 
@@ -126,12 +140,12 @@ by the following steps:
 
 * Insert a new transaction with property values in transactionTable
 * Build a new instance of propertyIndexes containing new indexes for updated properties
-  - This is done by create a new propertyIndexes that has current one as prototype, or by shallow copying the current propertyIndexes on a given threeshold.
+  - This is done by create a new propertyIndexes that has current one as prototype, or by shallow copying the current propertyIndexes on a given threshold.
   
 * Build a new instance using the function prototype defined by 'create' method.
   - Each functor is already a property of this prototype. 
   - The new instance already close around the transaction table, which is defined by 'create' method
-  - The new propertyIndexes is setted as a property of the new instance
+  - The new propertyIndexes is set as a property of the new instance
 
 * new instance is frozen
 * new instance is returned to caller
