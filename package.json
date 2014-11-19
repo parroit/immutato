@@ -1,0 +1,58 @@
+{
+  "name": "immutato",
+  "description": "immutable and typed js data structures",
+  "version": "0.3.0",
+  "homepage": "https://github.com/parroit/immutato",
+  "author": {
+    "name": "Andrea Parodi",
+    "email": "andrea.parodi@ebansoftware.net"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/parroit/immutato.git"
+  },
+  "bugs": {
+    "url": "https://github.com/parroit/immutato/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ],
+  "main": "lib/immutato",
+  "engines": {
+    "node": ">=0.10.26",
+    "npm": ">=1.4.3"
+  },
+  "scripts": {
+    "test": "gulp test-travis"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "benchmark": "^1.0.0",
+    "chai": "~1.9.1",
+    "gulp": "~3.8.6",
+    "gulp-bench": "^1.1.0",
+    "gulp-istanbul": "^0.3.1",
+    "gulp-load-plugins": "^0.7.1",
+    "gulp-mocha": "~0.5",
+    "gulp-mocha-phantomjs": "^0.5.1",
+    "gulp-pure-cjs": "^0.1.2",
+    "gulp-serve": "^0.3.0",
+    "gulp-streamify": "0.0.5",
+    "gulp-uglify": "^1.0.1",
+    "microtime": "^1.0.1",
+    "object-assign": "^1.0.0",
+    "sauce-run": "^0.2.0"
+  },
+  "keywords": [
+    "immutable",
+    "data",
+    "structure",
+    "structures",
+    "type",
+    "assertion",
+    "js"
+  ]
+}
