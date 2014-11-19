@@ -57,17 +57,17 @@ var suite = module.exports = {
     tests: {
 
         'current version': function() {
-            var age = suite.immCurr.age();
+            var name = suite.immCurr.name();
             
         },
 
 
         'previous version': function() {
-            var age = suite.immPrev.age;
+            var name = suite.immPrev.name;
         },
 
         'pojo': function() {
-            var age = suite.pojo.age;
+            var name = suite.pojo.name;
         }
 
     }
