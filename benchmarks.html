@@ -1,0 +1,227 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>immutato Benchmarks</title>
+    <style>
+    .results li.succes {
+        color: green;
+    }
+    .results li.error {
+        color: red;
+    }
+    .results li.info {
+        color: blue;
+    }
+    </style>
+</head>
+
+<body>
+    <ul class="results">
+    </ul>
+
+    <script src="javascripts/lodash.min.js"></script>
+    <script src="javascripts/platform.js"></script>
+    <script src="javascripts/benchmark.js"></script>
+    <script src="javascripts/immutato-prev.js"></script>
+    <script src="dist/immutato.js"></script>
+    <script src="javascripts/immutato-benchmarks.js"></script>
+    <script>
+    function assign(target, firstSource) {
+        'use strict';
+        if (target === undefined || target === null)
+            throw new TypeError('Cannot convert first argument to object');
+
+        var to = Object(target);
+
+        var hasPendingException = false;
+        var pendingException;
+
+        for (var i = 1; i < arguments.length; i++) {
+            var nextSource = arguments[i];
+            if (nextSource === undefined || nextSource === null)
+                continue;
+
+            var keysArray = Object.keys(Object(nextSource));
+            for (var nextIndex = 0, len = keysArray.length; nextIndex < len; nextIndex++) {
+                var nextKey = keysArray[nextIndex];
+                try {
+                    var desc = Object.getOwnPropertyDescriptor(nextSource, nextKey);
+                    if (desc !== undefined && desc.enumerable)
+                        to[nextKey] = nextSource[nextKey];
+                } catch (e) {
+                    if (!hasPendingException) {
+                        hasPendingException = true;
+                        pendingException = e;
+                    }
+                }
+            }
+
+            if (hasPendingException)
+                throw pendingException;
+        }
+        return to;
+    }
+    </script>
+    <script>
+    (function() {
+        var results = document.querySelector('.results');
+        var output = {};
+
+        function _log(msg, style) {
+            var result = document.createElement('li');
+            result.appendChild(document.createTextNode(msg));
+            result.className = style;
+            results.appendChild(result);
+        }
+
+        function _logInfo(msg) {
+            _log(msg, 'info');
+        }
+
+        function _logErr(msg) {
+            _log(msg, 'error');
+        }
+
+        function _logSuccess(msg) {
+            _log(msg, 'success');
+        }
+
+        function logStart(name) {
+            _logInfo('Running ' + name);
+        }
+
+
+
+        function writer(output, target) {
+            var data;
+            if (!_.isEmpty(output.results)) {
+                data = JSON.parse(output.results);
+                data.push(target);
+            } else {
+                data = [target];
+            }
+
+            output.results = JSON.stringify(data, null, 4);
+        }
+
+        function _writeResults(target) {
+
+            var vo = {
+                name: target.name,
+                timestamp: (new Date()).toString(),
+                error: target.error,
+                count: target.count,
+                cycles: target.cycles,
+                hz: target.hz
+            };
+            if (target.suite) {
+                vo.suite = target.suite;
+            }
+            writer.call(null, output, vo);
+
+        }
+
+        var suite = new Benchmark.Suite(suite1.name);
+
+        Object.keys(suite1.tests).forEach(function(testName) {
+            suite.add(testName, suite1.tests[testName]);
+        });
+
+        logStart('suite ' + suite1.name);
+
+        // Add test complete listeners
+        suite.on('cycle', function(event) {
+            var target = event.target || this;
+
+            if (!target.error) {
+                _logSuccess('   ' + target);
+            }
+            target.suite = suite1.name;
+            _writeResults(target);
+        });
+
+        suite.on('complete', function() {
+            if (!this.error) {
+                // Get the tests
+                var tests = _.sortBy(this, 'hz');
+
+                // Get the top fastest tests
+                var fastestTests = Benchmark.filter(this, 'fastest');
+
+                // Only bother if more than one test
+                if (tests.length <= 1) {
+                    return;
+                }
+
+                // Get the testest test
+                var fastest = fastestTests[0];
+
+                // Extract their names
+                var fastestNames = Benchmark.pluck(fastestTests, 'name');
+
+                // Get the second fastest
+                var secondFastestTests;
+                var secondFastest;
+                var secondFastestNames;
+                if (fastestTests.length > 1) {
+                    secondFastestTests = Benchmark.filter(fastestTests.slice(1), 'fastest');
+                    secondFastest = secondFastestTests[0];
+                    secondFastestNames = Benchmark.pluck(secondFastestTests, 'name');
+                } else {
+                    var slowerTests = _.reject(tests, function(obj) {
+                        return ~fastestNames.indexOf(obj.name);
+                    });
+                    secondFastestTests = Benchmark.filter(slowerTests, 'fastest').reverse();
+                    secondFastest = secondFastestTests[0];
+                    secondFastestNames = Benchmark.pluck(secondFastestTests, 'name');
+                }
+
+                // Calculate how much faster the fastest functions were than the second fastest
+                var timesFaster = (fastest.hz / secondFastest.hz);
+
+                var isAre = 'test is';
+                if (fastestTests.length > 1) {
+                    isAre = 'tests are';
+                }
+
+                var message = 'Fastest ' + isAre + ' ' + [fastestNames].join(' and ');
+
+                var decimalPlaces = timesFaster < 2 ? 2 : 1;
+
+                // Only bother if there wasn't a tie
+                if (fastestTests.length !== tests.length) {
+                    message += ' at ' + Benchmark.formatNumber(timesFaster.toFixed(decimalPlaces)) + 'x faster than ' + secondFastestNames.join(' and ');
+                }
+
+                _logInfo(message);
+            }
+        });
+
+        suite.on('error', function(event) {
+            var target = event.target;
+            _logErr('Error running test ' + target.name + ': ' + target.error);
+        });
+
+        suite.on('complete', function() {
+            // Catch errors
+            if (this.error) {
+                _logErr(this.error);
+            }
+
+            
+        });
+
+        suite.run({
+            'async': false
+        });
+
+    })();
+    </script>
+
+
+
+</body>
+
+</html>
