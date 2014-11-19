@@ -9,16 +9,16 @@
 'use strict';
 
 
-var immutato = require('../../lib/immutato.js');
-var $f = require('../lib/immutato.js');
+var immutato_prev = require('../..');
+var immutato = require('../lib/immutato.js');
 
 
 var suite = module.exports = {
     maxTime: 2,
     setup: function() {
-        suite.Imm = immutato.struct({
-            name: immutato.String,
-            age: immutato.Number
+        suite.Imm = immutato_prev.struct({
+            name: immutato_prev.String,
+            age: immutato_prev.Number
         }, 'Person');
     },
 
@@ -27,7 +27,7 @@ var suite = module.exports = {
     tests: {
 
         'current version': function() {
-            var imm = $f({
+            var imm = immutato({
                 name: 'Andrea',
                 age: 38
             });

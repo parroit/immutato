@@ -23,7 +23,7 @@ function guard(op) {
 }
 
 gulp.task('bench', function () {
-    return gulp.src('./benchmark/**/*.js', {read: false})
+    return gulp.src('./benchmark/*_bench.js', {read: false})
         .pipe($.bench());
 });
 
@@ -123,17 +123,21 @@ gulp.task('build-for-browser', function() {
 
 gulp.task('build-benchmarks', function() {
 
-    return gulp.src('./benchmark/**/*.js')
+    return gulp.src('./benchmark/all-benchmarks.js')
         .pipe(guard($.pureCjs({
-            external: ['immutato'],
-            output: 'immutato-benchmarks.js'
+            external: {
+                '../..': {global:'immutato_prev'},
+                '../lib/immutato': {global:'immutato'}
+            },
+            output: 'immutato-benchmarks.js',
+            exports: 'all-benchmarks',
         })))
 
     .pipe(gulp.dest('website/javascripts'));
 });
 
 
-gulp.task('dist',['build-for-browser']);
+gulp.task('dist',['build-for-browser','build-benchmarks']);
 
 
 gulp.task('deploy', function() {
