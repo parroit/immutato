@@ -109,17 +109,31 @@ gulp.task('test-phantom-travis', function() {
     return stream;
 });
 
-
-gulp.task('build', function() {
+gulp.task('build-for-browser', function() {
 
     return gulp.src('./lib/immutato.js')
+        .pipe($.sourcemaps.init())
         .pipe(guard($.pureCjs({
             exports: 'immutato',
             output: 'immutato.js'
         })))
-
-    .pipe(gulp.dest('dist'));
+        .pipe($.sourcemaps.write('.'))
+        .pipe(gulp.dest('website/dist'));
 });
+
+gulp.task('build-benchmarks', function() {
+
+    return gulp.src('./benchmark/**/*.js')
+        .pipe(guard($.pureCjs({
+            external: ['immutato'],
+            output: 'immutato-benchmarks.js'
+        })))
+
+    .pipe(gulp.dest('website/javascripts'));
+});
+
+
+gulp.task('dist',['build-for-browser']);
 
 
 gulp.task('deploy', function() {
