@@ -39,10 +39,9 @@ var suite = module.exports = {
         suite.Imm = immutato_prev.struct(payloadTypes, 'Person');
         suite.$f = immutato(suite.payloadProps);
 
-        /*try{
 
 
-
+/*
 
 
             var a = suite.$f({
@@ -50,25 +49,20 @@ var suite = module.exports = {
                 age:80,
                 field12: 122
             });
-
             console.log(a.name(),a.age(),a.field12());
             a = a.age(42);
             console.log(a.name(),a.age(),a.field12());
-
             var b = suite.$f({
                 name: 'Pino',
                 age:90,
                 field13: 133
             });
-
             console.log(b.name(),b.age(),b.field12(),b.field13());
             b = b.age(53);
             console.log(b.name(),b.age(),b.field12(),b.field13());
 
             console.log('tests done')
-        } catch(err) {
-            console.log(err.message,err.stack);
-        }*/
+*/
     },
 
     name: 'current vs prev version vs pojo -- immutable object creation',
