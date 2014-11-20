@@ -12,6 +12,7 @@ var assign = require('object-assign');
 var immutato_prev = require('../..');
 var immutato = require('../lib/immutato.js');
 var Immutable = require('immutable');
+var AO = require('ancient-oak');
 
 
 var suite = module.exports = {
@@ -38,6 +39,7 @@ var suite = module.exports = {
         var Imm = immutato_prev.struct(payloadTypes, 'Person');
         var $f = immutato(payloadProps);
 
+        suite.oak = AO(payloadProps);
         suite.immPrev = new Imm(payloadProps);
         suite.immCurr = $f(payloadProps);
         suite.pojo = assign({},payloadProps);
@@ -53,8 +55,11 @@ var suite = module.exports = {
 
         var iterations = 10000;
         while (iterations--) {
+
             suite.immCurr = suite.immCurr.age(iterations);
             suite.immPrev = suite.immPrev.set('age', iterations);
+            suite.oak = suite.oak.set('age', iterations);
+
             suite.immJs = suite.immJs.set('age', iterations);
             suite.pojo = assign({},suite.pojo);
             suite.pojo.age = iterations;
@@ -79,7 +84,10 @@ var suite = module.exports = {
             var name = suite.immJs.get('name');
 
         },
+        'ancient-oak': function() {
+            var name = suite.oak('name');
 
+        },
         'previous version': function() {
             var name = suite.immPrev.name;
         },

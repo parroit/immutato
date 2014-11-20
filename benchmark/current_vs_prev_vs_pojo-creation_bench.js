@@ -13,6 +13,7 @@ var immutato_prev = require('../..');
 var immutato = require('../lib/immutato.js');
 
 var Immutable = require('immutable');
+var AO = require('ancient-oak');
 
 var suite = module.exports = {
     maxTime: 2,
@@ -77,6 +78,12 @@ var suite = module.exports = {
 
         'previous version': function() {
             var imm = new suite.Imm(suite.payloadProps);
+        },
+
+        
+        'ancient-oak': function() {
+            var imm = AO(suite.payloadProps);
+
         },
 
         'immutable.js': function() {

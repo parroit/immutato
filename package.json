@@ -30,6 +30,7 @@
   },
   "dependencies": {},
   "devDependencies": {
+    "ancient-oak": "^0.3.4",
     "benchmark": "^1.0.0",
     "chai": "~1.9.1",
     "gulp": "~3.8.6",

@@ -12,6 +12,7 @@ var assign = require('object-assign');
 var immutato_prev = require('../..');
 var immutato = require('../lib/immutato.js');
 var Immutable = require('immutable');
+var AO = require('ancient-oak');
 
 var suite = module.exports = {
     maxTime: 2,
@@ -42,9 +43,10 @@ var suite = module.exports = {
         suite.immPrev = new Imm(payloadProps);
         suite.immCurr = $f(payloadProps);
         suite.immJs = Immutable.Map(payloadProps);
-
+        suite.oak = AO(payloadProps);
         suite.pojo = payloadProps;
 
+        suite.oakCounter = 0;
         suite.pojoCounter = 0;
         suite.prevCounter = 0;
         suite.currCounter = 0;
@@ -65,6 +67,10 @@ var suite = module.exports = {
         },
 
         
+        'ancient-oak': function() {
+            suite.oak = suite.oak.set('age', suite.oakCounter++);
+
+        },
         'immutable.js': function() {
             suite.immJs = suite.immJs.set('age', suite.immJsCounter++);
 
