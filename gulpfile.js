@@ -23,7 +23,7 @@ function guard(op) {
 }
 
 gulp.task('bench', function () {
-    return gulp.src('./benchmark/*_bench.js', {read: false})
+    return gulp.src('./benchmark/current_vs_prev_vs_pojo-change_bench.js', {read: false})
         .pipe($.bench());
 });
 
@@ -91,7 +91,7 @@ gulp.task('test-phantom', ['build-test', 'serve-test'], function() {
     setTimeout(function() {
       server.close();
     },1000);
-    
+
     return stream;
 });
 
@@ -104,8 +104,8 @@ gulp.task('test-phantom-travis', function() {
         path: 'http://www.parro.it/immutato/test.html'
     });
     stream.end();
-   
-    
+
+
     return stream;
 });
 

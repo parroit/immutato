@@ -11,25 +11,38 @@
 var assign = require('object-assign');
 var immutato_prev = require('../../');
 var immutato = require('../lib/immutato');
+var Immutable = require('immutable');
 
 
 var suite = module.exports = {
     maxTime: 2,
     setup: function() {
-        var Imm = immutato_prev.struct({
+        var i = 100;
+        var payloadTypes = {
             name: immutato_prev.String,
             age: immutato_prev.Number
-        }, 'Person');
+        };
 
-        suite.immPrev = new Imm({
+        var payloadProps = {
             name: 'Andrea',
             age: 38
-        });
+        };
 
-        suite.immCurr = immutato({
-            name: 'Andrea',
-            age: 38
-        });
+
+        while(i--) {
+            payloadTypes['field'+i] = immutato_prev.Number;
+            payloadProps['field'+i] = i;
+        }
+
+
+        var Imm = immutato_prev.struct(payloadTypes, 'Person');
+        var $f = immutato(payloadProps);
+
+
+        suite.immJs = Immutable.Map(suite.payloadProps);
+        suite.immPrev = new Imm(payloadProps);
+
+        suite.immCurr = $f(payloadProps);
 
         suite.pojo = {
             name: 'Andrea',
@@ -46,6 +59,10 @@ var suite = module.exports = {
             suite.immCurr.age(42);
         },
 
+        'immutable.js': function() {
+            suite.immJs.set('age', 42);
+
+        },
 
         'previous version': function() {
             suite.immPrev.set('age', 42);

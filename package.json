@@ -46,7 +46,8 @@
     "lodash": "^2.4.1",
     "microtime": "^1.0.1",
     "object-assign": "^1.0.0",
-    "sauce-run": "^0.2.0"
+    "sauce-run": "^0.2.0",
+    "immutable": "~3.2.1"
   },
   "keywords": [
     "immutable",

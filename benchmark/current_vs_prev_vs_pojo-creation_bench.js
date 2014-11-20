@@ -12,14 +12,63 @@
 var immutato_prev = require('../..');
 var immutato = require('../lib/immutato.js');
 
+var Immutable = require('immutable');
 
 var suite = module.exports = {
     maxTime: 2,
     setup: function() {
-        suite.Imm = immutato_prev.struct({
+        var i = 100;
+        var payloadTypes = {
             name: immutato_prev.String,
             age: immutato_prev.Number
-        }, 'Person');
+        };
+
+        var payloadProps = {
+            name: 'Andrea',
+            age: 38
+        };
+
+
+        while(i--) {
+            payloadTypes['field'+i] = immutato_prev.Number;
+            payloadProps['field'+i] = i;
+        }
+
+        suite.payloadProps = payloadProps;
+
+        suite.Imm = immutato_prev.struct(payloadTypes, 'Person');
+        suite.$f = immutato(suite.payloadProps);
+
+        /*try{
+
+
+
+
+
+            var a = suite.$f({
+                name: 'Gino',
+                age:80,
+                field12: 122
+            });
+
+            console.log(a.name(),a.age(),a.field12());
+            a = a.age(42);
+            console.log(a.name(),a.age(),a.field12());
+
+            var b = suite.$f({
+                name: 'Pino',
+                age:90,
+                field13: 133
+            });
+
+            console.log(b.name(),b.age(),b.field12(),b.field13());
+            b = b.age(53);
+            console.log(b.name(),b.age(),b.field12(),b.field13());
+
+            console.log('tests done')
+        } catch(err) {
+            console.log(err.message,err.stack);
+        }*/
     },
 
     name: 'current vs prev version vs pojo -- immutable object creation',
@@ -27,19 +76,17 @@ var suite = module.exports = {
     tests: {
 
         'current version': function() {
-            var imm = immutato({
-                name: 'Andrea',
-                age: 38
-            });
-
+           var imm = suite.$f(suite.payloadProps);
         },
 
 
         'previous version': function() {
-            var imm = new suite.Imm({
-                name: 'Andrea',
-                age: 38
-            });
+            var imm = new suite.Imm(suite.payloadProps);
+        },
+
+        'immutable.js': function() {
+            var imm = Immutable.Map(suite.payloadProps);
+
         },
 
         'pojo': function() {
