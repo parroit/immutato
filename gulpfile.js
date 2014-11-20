@@ -23,7 +23,9 @@ function guard(op) {
 }
 
 gulp.task('bench', function () {
-    return gulp.src('./benchmark/current_vs_prev_vs_pojo-change_bench.js', {read: false})
+    
+    //return gulp.src('./benchmark/current_vs_prev_vs_pojo-change_bench.js', {read: false})
+    return gulp.src('./benchmark/*_bench.js', {read: false})
         .pipe($.bench());
 });
 

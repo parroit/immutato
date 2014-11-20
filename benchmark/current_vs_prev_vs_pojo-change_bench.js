@@ -39,7 +39,7 @@ var suite = module.exports = {
         var $f = immutato(payloadProps);
 
 
-        suite.immJs = Immutable.Map(suite.payloadProps);
+        suite.immJs = Immutable.Map(payloadProps);
         suite.immPrev = new Imm(payloadProps);
 
         suite.immCurr = $f(payloadProps);
