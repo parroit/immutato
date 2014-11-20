@@ -16,6 +16,7 @@ var Immutable = require('immutable');
 
 var suite = module.exports = {
     maxTime: 2,
+
     setup: function() {
         var i = 100;
         var payloadTypes = {
@@ -55,8 +56,13 @@ var suite = module.exports = {
 
     tests: {
 
-        'current version': function() {
-            suite.immCurr.age(42);
+        'current version': {
+            fn: function() {
+                suite.immCurr.age(42);
+            },
+            onComplete: function(){
+                suite.immCurr.dispose();
+            }
         },
 
         'immutable.js': function() {

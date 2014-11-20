@@ -66,11 +66,15 @@ var suite = module.exports = {
     name: 'current vs prev version vs pojo -- read property after multiple changes',
 
     tests: {
-
-        'current version': function() {
-            var name = suite.immCurr.name();
-            
+        'current version': {
+            fn: function() {
+                var name = suite.immCurr.name();
+            },
+            onComplete: function(){
+                suite.immCurr.dispose();
+            }
         },
+        
         'immutable.js': function() {
             var name = suite.immJs.get('name');
 

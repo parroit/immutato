@@ -13,7 +13,7 @@ var loadPlugins = require('gulp-load-plugins');
 var $ = loadPlugins({
     lazy: true
 });
-
+var through2 = require('through2');
 var tests = 'test/*.js';
 var sources = 'lib/*.js';
 
@@ -22,10 +22,27 @@ function guard(op) {
     return op;
 }
 
-gulp.task('bench', function () {
+var doGC = through2.obj(function doGC(file, enc, next) {
+    //jshint validthis:true
+    var self = this;
+    setTimeout(function(){
+
+        self.push(file);
+        next();    
+    },10000);
     
+
+
+});
+
+gulp.task('bench', function() {
+
+    //return gulp.src('./benchmark/current_vs_prev_vs_pojo-creation_bench.js', {read: false})
     //return gulp.src('./benchmark/current_vs_prev_vs_pojo-change_bench.js', {read: false})
+
+    //return gulp.src('./benchmark/current_vs_prev_vs_pojo-multiple_changes_bench.js', {read: false})
     return gulp.src('./benchmark/*_bench.js', {read: false})
+        .pipe(doGC)
         .pipe($.bench());
 });
 
@@ -71,7 +88,7 @@ gulp.task('watch-only', function() {
 
 gulp.task('default', ['test', 'watch']);
 
-gulp.task('test-travis', ['test', 'test-phantom-travis'],function(){
+gulp.task('test-travis', ['test', 'test-phantom-travis'], function() {
     //require('./run-test-sauce');
 });
 
@@ -91,8 +108,8 @@ gulp.task('test-phantom', ['build-test', 'serve-test'], function() {
     });
     stream.end();
     setTimeout(function() {
-      server.close();
-    },1000);
+        server.close();
+    }, 1000);
 
     return stream;
 });
@@ -128,8 +145,12 @@ gulp.task('build-benchmarks', function() {
     return gulp.src('./benchmark/all-benchmarks.js')
         .pipe(guard($.pureCjs({
             external: {
-                '../..': {global:'immutato_prev'},
-                '../lib/immutato': {global:'immutato'}
+                '../..': {
+                    global: 'immutato_prev'
+                },
+                '../lib/immutato': {
+                    global: 'immutato'
+                }
             },
             output: 'immutato-benchmarks.js',
             exports: 'all-benchmarks',
@@ -139,7 +160,7 @@ gulp.task('build-benchmarks', function() {
 });
 
 
-gulp.task('dist',['build-for-browser','build-benchmarks']);
+gulp.task('dist', ['build-for-browser', 'build-benchmarks']);
 
 
 gulp.task('deploy', function() {

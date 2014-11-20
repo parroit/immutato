@@ -55,11 +55,15 @@ var suite = module.exports = {
     name: 'current vs prev version vs pojo -- change properties multiple times',
 
     tests: {
-
-        'current version': function() {
-
-            suite.immCurr = suite.immCurr.age(suite.currCounter++);
+        'current version': {
+            fn: function() {
+                suite.immCurr = suite.immCurr.age(suite.currCounter++);
+            },
+            onComplete: function(){
+                suite.immCurr.dispose();
+            }
         },
+
         
         'immutable.js': function() {
             suite.immJs = suite.immJs.set('age', suite.immJsCounter++);

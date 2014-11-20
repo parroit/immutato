@@ -37,7 +37,7 @@ var suite = module.exports = {
         suite.payloadProps = payloadProps;
 
         suite.Imm = immutato_prev.struct(payloadTypes, 'Person');
-        suite.$f = immutato(suite.payloadProps);
+        suite.$f = immutato(payloadProps);
 
 
 
@@ -71,6 +71,7 @@ var suite = module.exports = {
 
         'current version': function() {
            var imm = suite.$f(suite.payloadProps);
+           imm.dispose();
         },
 
 
